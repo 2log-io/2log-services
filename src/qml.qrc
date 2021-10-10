@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>PlugControl.qml</file>
+        <file>MachineControl/BorrowBox.qml</file>
+        <file>MachineControl/CardValidator.qml</file>
+        <file>MachineControl/HandMachine.qml</file>
+        <file>MachineControl/Machine.qml</file>
+        <file>MachineControl/MachineControl.qml</file>
+        <file>MachineControl/MachineControlStateMachine.qml</file>
+        <file>MachineControl/PayModule.qml</file>
+        <file>MachineControl/qmldir</file>
+        <file>MachineControl/Suction.qml</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,9 @@
+module MachineControl
+Machine 1.0                         Machine.qml
+MachineControl 1.0                  MachineControl.qml
+MachineControlStateMachine 1.0      MachineControlStateMachine.qml
+CardValidator 1.0                   CardValidator.qml
+HandMachine 1.0                     HandMachine.qml
+PayModule 1.0                       PayModule.qml
+BorrowBox 1.0                       BorrowBox.qml
+Suction 1.0                         Suction.qml
