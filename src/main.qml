@@ -111,29 +111,29 @@ Item
 
     Component.onCompleted:
     {
-        CloudSession.serverUrl = qh_url
+        QuickHub.serverUrl = qh_url
     }
 
     Timer
     {
         id: reconnectTimer
         interval: 1000
-        onTriggered: CloudSession.reconnectServer()
+        onTriggered: QuickHub.reconnectServer()
     }
 
     Connections
     {
-        target: CloudSession
+        target: QuickHub
         onStateChanged:
         {
-            if(CloudSession.state == CloudSession.STATE_Connected)
+            if(QuickHub.state == QuickHub.STATE_Connected)
             {
-                CloudSession.login(qh_user,qh_password);
+                QuickHub.login(qh_user,qh_password);
 
                reconnectTimer.running = false;
             }
 
-            if(CloudSession.state == CloudSession.STATE_Disconnected)
+            if(QuickHub.state == QuickHub.STATE_Disconnected)
             {
                 reconnectTimer.start()
             }
