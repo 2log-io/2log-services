@@ -14,6 +14,7 @@
 #include "DeviceLookup.h"
 #include "InitQuickHub.h"
 #include "Controllers/SwitchMonitoringController.h"
+#include <QCommandLineParser>
 
 void catchUnixSignals(std::initializer_list<int> quitSignals) {
     auto handler = [](int sig) -> void {
@@ -52,15 +53,26 @@ int main(int argc, char *argv[])
     QString datadir = QProcessEnvironment::systemEnvironment().value("QUICKLAB_DATA_DIR", "");
     QString entrypoint = QProcessEnvironment::systemEnvironment().value("MAIN_QML", "");
 
+
+    app.setOrganizationName(orgname);
+    app.setApplicationName(appname);
+
+    QCommandLineParser parser;
+    parser.addHelpOption();
+    QCommandLineOption userOpt({"u","user"}, "Sets the username for the service login", "user", user);
+    QCommandLineOption passOpt({"p","password"}, "Sets the password for the service login", "password", password);
+    parser.addOption(userOpt);
+    parser.addOption(passOpt);
+    parser.process(app);
+
+    user = parser.value("user");
+    password = parser.value("password");
+
     if(!datadir.isEmpty())
     {
         QSettings::setPath(QSettings::NativeFormat, QSettings::UserScope, datadir+"/user");
         QSettings::setPath(QSettings::NativeFormat, QSettings::SystemScope, datadir+"/system");
     }
-
-
-    app.setOrganizationName(orgname);
-    app.setApplicationName(appname);
 
     qmlRegisterType<PropertyWatcher>("AddOns", 1, 0, "PropertyWatcher");
     qmlRegisterType<SwitchMonitoringController>("LogicController", 1, 0, "SwitchMonitoringController");
