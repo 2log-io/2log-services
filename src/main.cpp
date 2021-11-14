@@ -49,10 +49,8 @@ int main(int argc, char *argv[])
     QString user = QProcessEnvironment::systemEnvironment().value("QH_SERVICE_USER", "admin");
     QString password = QProcessEnvironment::systemEnvironment().value("QH_SERVICE_PASSWORD", "password");
     QString url = QProcessEnvironment::systemEnvironment().value("QH_URL", "ws://localhost:4711");
-
     QString datadir = QProcessEnvironment::systemEnvironment().value("QUICKLAB_DATA_DIR", "");
     QString entrypoint = QProcessEnvironment::systemEnvironment().value("MAIN_QML", "");
-
 
     app.setOrganizationName(orgname);
     app.setApplicationName(appname);
