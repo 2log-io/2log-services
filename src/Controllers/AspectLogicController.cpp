@@ -58,7 +58,8 @@ void AspectLogicController::componentComplete()
     while(aspectIt.hasNext())
     {
         IAspect* aspect = aspectIt.next();
-        QListIterator<iAspectPropertyPtr> aspectPropIt(aspect->getProperties(_deviceID));
+        auto tempProperties = aspect->getProperties(_deviceID);
+        QListIterator<iAspectPropertyPtr> aspectPropIt(tempProperties);
         while (aspectPropIt.hasNext())
         {
             addProperty(aspectPropIt.next());
