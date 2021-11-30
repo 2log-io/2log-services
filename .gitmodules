@@ -1,3 +1,3 @@
 [submodule "src/quickhub-qmlclientmodule"]
 	path = src/quickhub-qmlclientmodule
-	url = git@github.com:quickhub-project/quickhub-qmlclientmodule.git
+	url = https://github.com/quickhub-project/quickhub-qmlclientmodule.git
