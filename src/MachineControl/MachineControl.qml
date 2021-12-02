@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import CloudAccess 1.0
+import QuickHub 1.0
 
 
 

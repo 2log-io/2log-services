@@ -1,5 +1,5 @@
 import QtQuick 2.9
-import CloudAccess 1.0
+import QuickHub 1.0
 import "MachineControl"
 import QtQml 2.0
 import LogicController 1.0
@@ -111,29 +111,29 @@ Item
 
     Component.onCompleted:
     {
-        QuickHub.serverUrl = qh_url
+        Connection.serverUrl = qh_url
     }
 
     Timer
     {
         id: reconnectTimer
         interval: 1000
-        onTriggered: QuickHub.reconnectServer()
+        onTriggered: Connection.reconnectServer()
     }
 
     Connections
     {
-        target: QuickHub
+        target: Connection
         onStateChanged:
         {
-            if(QuickHub.state == QuickHub.STATE_Connected)
+            if(Connection.state == Connection.STATE_Connected)
             {
-                QuickHub.login(qh_user,qh_password);
+                UserLogin.login(qh_user,qh_password);
 
                reconnectTimer.running = false;
             }
 
-            if(QuickHub.state == QuickHub.STATE_Disconnected)
+            if(Connection.state == Connection.STATE_Disconnected)
             {
                 reconnectTimer.start()
             }

@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("qh_password", password);
     engine.rootContext()->setContextProperty("deviceLookup", DeviceLookup::instance());
 
-    InitQuickHub::registerTypes("CloudAccess");
+    InitQuickHub::registerTypes("QuickHub");
 
     if(!entrypoint.isEmpty())
         engine.load(QUrl(entrypoint));
