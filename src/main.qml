@@ -4,80 +4,66 @@ import "MachineControl"
 import QtQml 2.0
 import LogicController 1.0
 
-
-Item
-{
+Item {
     id: docroot
 
-    SynchronizedListModel
-    {
+    SynchronizedListModel {
         id: suctionsModel
-        resource:"2log/controller/suctions"
+        resource: "2log/controller/suctions"
     }
 
-    Instantiator
-    {
+    Instantiator {
         id: suctions
         model: suctionsModel
-        Suction
-        {
+        Suction {
             id: suction
             deviceID: model.deviceID
             displayName: name
 
-            Component.onCompleted:
-            {
+            Component.onCompleted: {
                 deviceLookup.addObject(suction, deviceID)
             }
         }
     }
 
-
-    SynchronizedListModel
-    {
+    SynchronizedListModel {
         id: controllerModel
-        resource:"2log/controller/machines"
+        resource: "2log/controller/machines"
     }
 
-
-    Instantiator
-    {
+    Instantiator {
         id: machines
         model: controllerModel
 
-        Machine
-        {
+        Machine {
             id: machine
             device: model.deviceID
             displayName: name
 
-            Component.onCompleted:
-            {
+            Component.onCompleted: {
                 deviceLookup.addObject(machine, device)
             }
 
             onSuctionChanged: console.log(suction)
-            onSetSuction:
-            {
+            onSetSuction: {
                 var suction = deviceLookup.getObject(suctionID)
-                if(suction === null)
-                {
+                if (suction === null) {
                     return
                 }
 
-                if(true)
-                {
-                    machine.intercept = Qt.binding(function(){return dependsOnSuction &&  !deviceLookup.getObject(suctionID).running})
+                if (true) {
+                    machine.intercept = Qt.binding(function () {
+                        return dependsOnSuction && !deviceLookup.getObject(
+                                    suctionID).running
+                    })
                 }
 
                 suction.addMachine(machineID)
             }
-            onRemoveSuction:
-            {
-                machine.intercept = false;
+            onRemoveSuction: {
+                machine.intercept = false
                 var suction = deviceLookup.getObject(suctionID)
-                if(suction === null)
-                {
+                if (suction === null) {
                     return
                 }
 
@@ -86,55 +72,42 @@ Item
         }
     }
 
-
-    SynchronizedListModel
-    {
+    SynchronizedListModel {
         id: monitoringModel
-        resource:"2log/controller/monitoring"
+        resource: "2log/controller/monitoring"
     }
 
-
-    Instantiator
-    {
+    Instantiator {
         id: monitoring
         model: monitoringModel
 
-        SwitchMonitoringController
-        {
+        SwitchMonitoringController {
             deviceID: model.deviceID
             displayName: name
             deviceType: "Controller/Monitoring"
         }
     }
 
-// SETUP ##################################################
-
-    Component.onCompleted:
-    {
+    // SETUP ##################################################
+    Component.onCompleted: {
         Connection.serverUrl = qh_url
     }
 
-    Timer
-    {
+    Timer {
         id: reconnectTimer
         interval: 1000
         onTriggered: Connection.reconnectServer()
     }
 
-    Connections
-    {
+    Connections {
         target: Connection
-        onStateChanged:
-        {
-            if(Connection.state == Connection.STATE_Connected)
-            {
-                UserLogin.login(qh_user,qh_password);
-
-               reconnectTimer.running = false;
+        onStateChanged: {
+            if (Connection.state == Connection.STATE_Connected) {
+                UserLogin.login(qh_user, qh_password)
+                reconnectTimer.running = false
             }
 
-            if(Connection.state == Connection.STATE_Disconnected)
-            {
+            if (Connection.state == Connection.STATE_Disconnected) {
                 reconnectTimer.start()
             }
         }
